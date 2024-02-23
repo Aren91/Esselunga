@@ -5,6 +5,8 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
 		<jta-data-source>java:/esselunga</jta-data-source>
+		<class>esselunga.jpa.models.Prodotto</class>
+		<class>esselunga.jpa.models.Utente</class>
 		
 		<properties>
 

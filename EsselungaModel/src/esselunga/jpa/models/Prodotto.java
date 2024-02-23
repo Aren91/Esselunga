@@ -39,7 +39,7 @@ public class Prodotto implements Serializable {
 			inverseJoinColumns = @JoinColumn(name="ID_UTENTE", referencedColumnName="ID")
 			)
 	private List<Utente> utenti;
-//	Bisogna aggiungere la join per il carrello.
+
 
 	public Integer getId() {
 		return id;
