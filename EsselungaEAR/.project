@@ -3,11 +3,11 @@
 	<name>EsselungaEAR</name>
 	<comment></comment>
 	<projects>
-		<project>EsselungaModel</project>
+		<project>EsselungaRest</project>
 		<project>EsselungaWEB</project>
+		<project>EsselungaModel</project>
 		<project>EsselungaDB</project>
 		<project>EsselungaEJB</project>
-		<project>EsselungaRest</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
