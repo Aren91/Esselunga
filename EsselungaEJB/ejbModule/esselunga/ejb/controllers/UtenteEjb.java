@@ -3,10 +3,15 @@ package esselunga.ejb.controllers;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
 import esselunga.ejb.interfaces.UtenteEjbInterface;
 import esselunga.jpa.dao.UtenteDao;
 import esselunga.jpa.models.Utente;
 
+@Stateless(name="UtenteEjbInterface")
+@LocalBean
 public class UtenteEjb implements Serializable, UtenteEjbInterface{
 
 	private static final long serialVersionUID = -1449442866644241177L;
