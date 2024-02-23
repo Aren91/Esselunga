@@ -24,12 +24,10 @@ public class ProdottoRest {
 	
 	private ProdottoEjbInterface prodottoEjbInterface;
 	
-	private final static String bodyType = "application/json";
-	
 	@POST
 	@Path("/insertProdotto")
-	@Produces(bodyType)
-	@Consumes(bodyType)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response insert(Prodotto prodotto) {
 		
 		logInit("insert", prodotto);
@@ -47,8 +45,8 @@ public class ProdottoRest {
 	
 	@PUT
 	@Path("/updateProdotto")
-	@Produces(bodyType)
-	@Consumes(bodyType)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(Prodotto prodotto) {
 		
 		logInit("update", prodotto);
@@ -66,7 +64,7 @@ public class ProdottoRest {
 	
 	@DELETE
 	@Path("/deleteProdotto")
-	@Consumes(bodyType)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response delete(Prodotto prodotto) {
 		
 		logInit("delete", prodotto);
@@ -101,6 +99,10 @@ public class ProdottoRest {
 		}
 	}
 	
+	
+	@GET
+	@Path("/getListaProdotti")
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAll() {
 		
 		logInit("findAll", null);
