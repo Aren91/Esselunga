@@ -5,7 +5,7 @@ import javax.naming.InitialContext;
 
 public class EJBFactory<T> {
 	
-	private final static String PREFIX = "java:global/ExofilmEAR/ExofilmEJB/"; // percorso e nome del progetto con gli EJB
+	private final static String PREFIX = "java:global/EsselungaEAR/EsselungaEJB/"; // percorso e nome del progetto con gli EJB
 
 	private Class<T> interfaceClass;
 	
