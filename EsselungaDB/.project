@@ -3,7 +3,6 @@
 	<name>EsselungaDB</name>
 	<comment></comment>
 	<projects>
-		<project>EsselungaModel</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
