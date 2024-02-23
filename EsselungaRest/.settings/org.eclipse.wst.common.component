@@ -2,6 +2,9 @@
     <wb-module deploy-name="EsselungaRest">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="EsselungaEJB.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/EsselungaEJB/EsselungaEJB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="EsselungaRest"/>
         <property name="java-output-path" value="/EsselungaRest/build/classes"/>
     </wb-module>

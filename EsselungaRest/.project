@@ -3,6 +3,7 @@
 	<name>EsselungaRest</name>
 	<comment></comment>
 	<projects>
+		<project>EsselungaEJB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
