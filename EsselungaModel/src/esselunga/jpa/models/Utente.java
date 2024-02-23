@@ -1,12 +1,15 @@
 package esselunga.jpa.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +34,10 @@ public class Utente implements Serializable{
 	
 	@Column(name="PASSWORD")
 	private String password;
+	
+	@ManyToMany(mappedBy="utenti")
+	@JsonbTransient
+	private List<Prodotto> prodotti;
 
 	public Integer getId() {
 		return id;
@@ -95,6 +102,20 @@ public class Utente implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public List<Prodotto> getProdotti() {
+		return prodotti;
+	}
+
+	public void setProdotti(List<Prodotto> prodotti) {
+		this.prodotti = prodotti;
+	}
+
+	@Override
+	public String toString() {
+		return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", password="
+				+ password + ", prodotti.size=" + (prodotti != null ? prodotti.size() : 0) + "]";
 	}
 
 }

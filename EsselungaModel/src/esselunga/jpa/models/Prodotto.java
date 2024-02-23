@@ -1,12 +1,18 @@
 package esselunga.jpa.models;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +32,13 @@ public class Prodotto implements Serializable {
 	@Column(name = "PREZZO")
 	private Double prezzo;
 	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+	@JoinTable(
+			name="carrello",
+			joinColumns = @JoinColumn(name="ID_PRODOTTO", referencedColumnName="ID"),
+			inverseJoinColumns = @JoinColumn(name="ID_UTENTE", referencedColumnName="ID")
+			)
+	private List<Utente> utenti;
 //	Bisogna aggiungere la join per il carrello.
 
 	public Integer getId() {
@@ -91,7 +104,15 @@ public class Prodotto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Prodotto [id=" + id + ", nome=" + nome + ", prezzo=" + prezzo + "]";
+		return "Prodotto [id=" + id + ", nome=" + nome + ", prezzo=" + prezzo + ", utenti=" + utenti + "]";
+	}
+
+	public List<Utente> getUtenti() {
+		return utenti;
+	}
+
+	public void setUtenti(List<Utente> utenti) {
+		this.utenti = utenti;
 	}
 	
 }
