@@ -180,5 +180,28 @@ public class UtenteRest {
 		return Response.serverError().build();
 	}
 	
+	@GET
+	@Path("/getUtenteLogin/{email}/{password}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response login(@PathParam("email") String email, @PathParam("password") String password) {
+		
+		System.out.println("login");
+		
+		try {
+			
+			utenteEjbInterface = new EJBFactory<UtenteEjbInterface>(UtenteEjbInterface.class).getEJB();
+			Utente utente = utenteEjbInterface.login(email, password);
+			
+			return Response.ok().entity(utente).build();
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		
+		}
+		
+		return Response.ok().build();
+	}
+	
 	
 }

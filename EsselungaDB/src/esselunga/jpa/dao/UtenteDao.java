@@ -205,5 +205,39 @@ public class UtenteDao extends BaseDao<Utente> {
 		
 		return null;
 	}
+	
+	public Utente login (String email, String password) {
+		
+		System.out.println("login");
+		
+		try {
+			
+			EntityManagerProvider.beginTransaction();
+			Utente utente = new Utente();
+			
+			Query query = EntityManagerProvider.getEntityManager().createNativeQuery("select * from utente u "
+																					+ "where u.EMAIL = ? "
+																					+ "and PASSWORD = ?;", Utente.class);
+			query.setParameter(1, email);
+			query.setParameter(2, password);
+			
+			utente = (Utente) query.getSingleResult();
+			
+			EntityManagerProvider.commitTransaction();
+			
+			return utente;
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			EntityManagerProvider.rollbackTransaction();
+			
+		} finally {
+			
+			getEntityManager().close();
+		}
+		
+		return null;
+	}
 
 }

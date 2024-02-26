@@ -79,4 +79,12 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 		return listaUtenti;
 	}
 
+	@Override
+	public Utente login(String email, String password) {
+
+		UtenteDao utenteDao = new UtenteDao();
+		Utente utente = utenteDao.login(email, password);
+		return utente;
+	}
+
 }

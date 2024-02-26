@@ -22,4 +22,6 @@ public interface UtenteEjbInterface {
 	List<Utente> findAllByProdotti();
 	
 	List<Utente> findUtentiByProdottoId(Integer id);
+	
+	Utente login(String email, String password);
 }
