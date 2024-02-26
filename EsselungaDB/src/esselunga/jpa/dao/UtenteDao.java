@@ -144,5 +144,66 @@ public class UtenteDao extends BaseDao<Utente> {
 		}
 		return null;
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Utente> findAllByProdotti() {
+		
+		try {
+			
+			EntityManagerProvider.beginTransaction();
+			List<Utente> listaUtenti = new ArrayList<Utente>();
+			
+			Query query = EntityManagerProvider.getEntityManager().createNativeQuery("select * from utente u " + 
+																					"inner join carrello c on u.ID = c.ID_UTENTE" + 
+																					" inner join prodotto p on p.ID = c.ID_PRODOTTO",
+																					Utente.class);
+			listaUtenti = query.getResultList();
+			EntityManagerProvider.commitTransaction();
+			
+			return listaUtenti;
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			EntityManagerProvider.rollbackTransaction();
+		} finally {
+			
+			getEntityManager().close();
+		}
+		
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Utente> findUtentiByProdottoId(Integer id) {
+		
+		try {
+			
+			EntityManagerProvider.beginTransaction();
+			List<Utente> listaUtenti = new ArrayList<Utente>();
+			
+			Query query = EntityManagerProvider.getEntityManager().createNativeQuery("select * from utente u " + 
+																					"inner join carrello c on u.ID = c.ID_UTENTE" + 
+																					" inner join prodotto p on p.ID = c.ID_PRODOTTO" + 
+																					" where p.ID = " + id, Utente.class);
+			listaUtenti = query.getResultList();
+			
+			EntityManagerProvider.commitTransaction();
+			
+			return listaUtenti;
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			EntityManagerProvider.rollbackTransaction();
+			
+		} finally {
+			
+			getEntityManager().close();
+		}
+		
+		return null;
+	}
 
 }

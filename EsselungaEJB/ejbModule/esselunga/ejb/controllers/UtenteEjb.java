@@ -63,4 +63,20 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 		utenteDao.delete(model);
 	}
 
+	@Override
+	public List<Utente> findAllByProdotti() {
+		
+		UtenteDao utenteDao = new UtenteDao();
+		List<Utente> listaUtenti = utenteDao.findAllByProdotti();
+		return listaUtenti;
+	}
+
+	@Override
+	public List<Utente> findUtentiByProdottoId(Integer id) {
+
+		UtenteDao utenteDao = new UtenteDao();
+		List<Utente> listaUtenti = utenteDao.findUtentiByProdottoId(id);
+		return listaUtenti;
+	}
+
 }

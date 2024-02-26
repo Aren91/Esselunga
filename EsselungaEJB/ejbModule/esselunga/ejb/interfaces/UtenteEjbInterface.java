@@ -18,4 +18,8 @@ public interface UtenteEjbInterface {
 	Utente update(Utente model);
 	
 	void delete(Utente model);
+	
+	List<Utente> findAllByProdotti();
+	
+	List<Utente> findUtentiByProdottoId(Integer id);
 }

@@ -46,6 +46,51 @@ public class UtenteRest {
 	}
 	
 	@GET
+	@Path("/getListaUtentiByProdotti")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAllByProdotti() {
+		
+		System.out.println("findAllByProdotti");
+		try {
+			
+			utenteEjbInterface = new EJBFactory<UtenteEjbInterface>(UtenteEjbInterface.class).getEJB();
+			List<Utente> listaUtenti = utenteEjbInterface.findAllByProdotti();
+			
+			return Response.ok().entity(listaUtenti).build();
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return Response.serverError().build();
+	}
+	
+	@GET
+	@Path("/getListaUtentiByProdottiId/{idProdotto}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findUtentiByProdottoId(@PathParam("idProdotto") Integer id) {
+		
+		System.out.println("Stampo findUtentiByProdottoId");
+		
+		try {
+			
+			utenteEjbInterface = new EJBFactory<UtenteEjbInterface>(UtenteEjbInterface.class).getEJB();
+			List<Utente> listaUtenti = utenteEjbInterface.findUtentiByProdottoId(id);
+			
+			return Response.ok().entity(listaUtenti).build();
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return Response.serverError().build();
+		
+	}
+	
+	@GET
 	@Path("/getUtenteById/{idUtente}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findById(@PathParam("idUtente") Integer id) {
