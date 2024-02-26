@@ -203,5 +203,22 @@ public class UtenteRest {
 		return Response.ok().build();
 	}
 	
+	@GET
+	@Path("/getDatiUtenteProdotto")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAllDatiUtenteProdotto() {
+		
+		System.out.println("findAllDatiUtenteProdotto di UtenteRest");
+		try {
+			utenteEjbInterface = new EJBFactory<UtenteEjbInterface>(UtenteEjbInterface.class).getEJB();
+			List<Utente> datiTrovati = utenteEjbInterface.findAllDatiUtenteProdotto();
+			
+			return Response.ok(datiTrovati).build();
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return Response.serverError().build();
+		}
+	}
 	
 }

@@ -87,4 +87,12 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 		return utente;
 	}
 
+	@Override
+	public List<Utente> findAllDatiUtenteProdotto() {
+		
+		UtenteDao utenteDao = new UtenteDao();
+		
+		return utenteDao.findAllDatiUtenteProdotto();
+	}
+
 }

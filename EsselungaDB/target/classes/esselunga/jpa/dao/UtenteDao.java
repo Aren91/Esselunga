@@ -239,5 +239,26 @@ public class UtenteDao extends BaseDao<Utente> {
 		
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Utente> findAllDatiUtenteProdotto(){
+		
+		System.out.println("findAllDatiUtenteProdotto di UtenteDao");
+		try {
+			beginTransaction();
+			Query query = getEntityManager().createNativeQuery("SELECT U.*, P.* FROM CARRELLO C "
+					+ "INNER JOIN UTENTE U ON U.ID = C.ID_UTENTE "
+					+ "INNER JOIN PRODOTTO P ON P.ID = C.ID_PRODOTTO", Utente.class);
+			List<Utente> datiTrovati = query.getResultList();
+			
+			return datiTrovati;
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return null;
+		} finally {
+			getEntityManager().close();
+		}
+	}
 
 }
