@@ -55,4 +55,20 @@ public class ProdottoEjb implements ProdottoEjbInterface, Serializable{
 		return prodottoDao.findAll();
 	}
 
+	@Override
+	public List<Prodotto> findAllByUtenti() {
+		
+		ProdottoDao prodottoDao = new ProdottoDao();
+		
+		return prodottoDao.findAllByUtenti();
+	}
+
+	@Override
+	public List<Prodotto> findAllByIdUtente(Integer idUtente) {
+		
+		ProdottoDao prodottoDao = new ProdottoDao();
+		
+		return prodottoDao.findAllByIdUtente(idUtente);
+	}
+
 }

@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -116,6 +117,44 @@ public class ProdottoRest {
 			e.printStackTrace();
 			
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Path("/getProdottiUtenti")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAllByUtenti() {
+		
+		logInit("findAllByUtenti", null);
+		List<Prodotto> prodottiUtenti = new ArrayList<Prodotto>();
+		try {
+			prodottoEjbInterface = new EJBFactory<ProdottoEjbInterface>(ProdottoEjbInterface.class).getEJB();
+			prodottiUtenti = prodottoEjbInterface.findAllByUtenti();
+			
+			return Response.status(Status.OK).entity(prodottiUtenti).build();
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return Response.serverError().build();
+		}
+	}
+	
+	@GET
+	@Path("/getProdottiUtente/{idUtente}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAllByIdUtente(@PathParam("idUtente")Integer idUtente) {
+		
+		logInit("findAllByIdUtente", idUtente);
+		List<Prodotto> prodottiUtente = new ArrayList<Prodotto>();
+		try {
+			prodottoEjbInterface = new EJBFactory<ProdottoEjbInterface>(ProdottoEjbInterface.class).getEJB();
+			prodottiUtente = prodottoEjbInterface.findAllByIdUtente(idUtente);
+			
+			return Response.ok(prodottiUtente).build();
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return Response.serverError().build();
 		}
 	}
 	

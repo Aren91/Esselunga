@@ -19,4 +19,8 @@ public interface ProdottoEjbInterface {
 	
 	List<Prodotto> findAll();
 	
+	List<Prodotto> findAllByUtenti();
+	
+	List<Prodotto> findAllByIdUtente(Integer idUtente);
+	
 }

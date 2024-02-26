@@ -113,5 +113,51 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 			getEntityManager().close();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Prodotto> findAllByUtenti(){
+		
+		logInit("findAllByUtenti", null);
+		
+		try {
+			beginTransaction();
+			Query query = getEntityManager().createNativeQuery("SELECT * FROM PRODOTTO P"
+					+ " INNER JOIN CARRELLO C ON P.ID = C.ID_PRODOTTO"
+					+ " INNER JOIN UTENTE U ON U.ID = C.ID_UTENTE", Prodotto.class);
+			List<Prodotto> prodottiUtenti = query.getResultList();
+			
+			return prodottiUtenti;
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return null;
+		} finally {
+			getEntityManager().close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Prodotto> findAllByIdUtente(Integer idUtente){
+		
+		logInit("findAllByIdUtente", idUtente);
+		
+		try {
+			beginTransaction();
+			Query query = getEntityManager().createNativeQuery("SELECT * FROM PRODOTTO P "
+					+ "LEFT JOIN CARRELLO C ON P.ID = C.ID_PRODOTTO "
+					+ "LEFT JOIN UTENTE U ON U.ID = C.ID_UTENTE "
+					+ "WHERE U.ID = ?", Prodotto.class);
+			query.setParameter(1, idUtente);
+			List<Prodotto> prodottiUtente = query.getResultList();
+			
+			return prodottiUtente;
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return null;
+		} finally {
+			getEntityManager().close();
+		}
+	}
 
 }
