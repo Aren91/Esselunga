@@ -168,5 +168,24 @@ public class ProdottoRest {
 				? object.toString()
 				: ""));
 	}
+	
+	@GET
+	@Path("/getListaDati")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAllDati() {
+		
+		logInit("findAll", null);
+		List<Prodotto> datiTrovati = new ArrayList<Prodotto>();
+		try {
+			prodottoEjbInterface = new EJBFactory<ProdottoEjbInterface>(ProdottoEjbInterface.class).getEJB();
+			datiTrovati = prodottoEjbInterface.findAllDati();
+			
+			return Response.status(Status.OK).entity(datiTrovati).build();
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 }
