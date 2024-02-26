@@ -69,7 +69,7 @@ public class UtenteDao extends BaseDao<Utente> {
 			
 			EntityManagerProvider.beginTransaction();
 
-			if(getEntityManager().contains(model)) {
+			if(!getEntityManager().contains(model)) {
 				
 				model = getEntityManager().merge(model);
 			}
