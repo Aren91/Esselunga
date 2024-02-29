@@ -4,8 +4,14 @@ import { EsselungaContext } from  './Context'
 import Accesso from './components/Accesso';
 import Registrazione from './components/Registrazione';
 import Login from './components/Login';
+import { useState } from 'react';
 
 function App() {
+
+  const [utente,setUtente] = useState(null)
+
+  const contextValue = {utente, setUtente}
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -13,7 +19,7 @@ function App() {
         <h1>Esselunga</h1>
       </header>
       <div>
-        <EsselungaContext.Provider>
+        <EsselungaContext.Provider value={contextValue}>
         <Switch>
           <Route exact path={'/'}>
             <Accesso/>
