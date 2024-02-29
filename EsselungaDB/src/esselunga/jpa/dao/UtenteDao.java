@@ -3,6 +3,7 @@ package esselunga.jpa.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import esselunga.jpa.connection.EntityManagerProvider;
@@ -206,7 +207,7 @@ public class UtenteDao extends BaseDao<Utente> {
 		return null;
 	}
 	
-	public Utente login (String email, String password) {
+	public Utente login (String email, String password) throws NoResultException {
 		
 		System.out.println("login");
 		

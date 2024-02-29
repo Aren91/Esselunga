@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 
 import esselunga.ejb.interfaces.UtenteEjbInterface;
 import esselunga.jpa.dao.UtenteDao;
@@ -80,7 +81,7 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 	}
 
 	@Override
-	public Utente login(String email, String password) {
+	public Utente login(String email, String password) throws NoResultException {
 
 		UtenteDao utenteDao = new UtenteDao();
 		Utente utente = utenteDao.login(email, password);
