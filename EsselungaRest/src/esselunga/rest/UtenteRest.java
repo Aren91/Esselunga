@@ -2,6 +2,7 @@ package esselunga.rest;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -194,11 +195,13 @@ public class UtenteRest {
 			
 			return Response.ok().entity(utente).build();
 			
-		} catch (Exception e) {
-
-			e.printStackTrace();
-			System.out.println("Errore");
+		} catch (NoResultException e) {
 		
+			e.printStackTrace();
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return Response.serverError().build();
