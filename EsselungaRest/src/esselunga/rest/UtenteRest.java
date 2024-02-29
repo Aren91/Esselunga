@@ -184,7 +184,7 @@ public class UtenteRest {
 	@GET
 	@Path("/getUtenteLogin/{email}/{password}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response login(@PathParam("email") String email, @PathParam("password") String password) {
+	public Response login(@PathParam("email") String email, @PathParam("password") String password) throws NoResultException {
 		
 		System.out.println("login");
 		
@@ -192,6 +192,11 @@ public class UtenteRest {
 			
 			utenteEjbInterface = new EJBFactory<UtenteEjbInterface>(UtenteEjbInterface.class).getEJB();
 			Utente utente = utenteEjbInterface.login(email, password);
+			
+			if (utente == null) {
+				
+				throw new NoResultException();
+			}
 			
 			return Response.ok().entity(utente).build();
 			
