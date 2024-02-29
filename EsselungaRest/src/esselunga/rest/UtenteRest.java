@@ -20,13 +20,14 @@ import esselunga.jpa.models.Utente;
 import esselunga.rest.config.EJBFactory;
 
 @Path("utenteRest")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class UtenteRest {
 
 	private UtenteEjbInterface utenteEjbInterface;
 	
 	@GET
 	@Path("/getListaUtenti")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAll() {
 		
 		System.out.println("Stampo lista utenti");
@@ -48,7 +49,6 @@ public class UtenteRest {
 	
 	@GET
 	@Path("/getListaUtentiByProdotti")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAllByProdotti() {
 		
 		System.out.println("findAllByProdotti");
@@ -69,7 +69,6 @@ public class UtenteRest {
 	
 	@GET
 	@Path("/getListaUtentiByProdottiId/{idProdotto}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response findUtentiByProdottoId(@PathParam("idProdotto") Integer id) {
 		
 		System.out.println("Stampo findUtentiByProdottoId");
@@ -93,7 +92,6 @@ public class UtenteRest {
 	
 	@GET
 	@Path("/getUtenteById/{idUtente}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response findById(@PathParam("idUtente") Integer id) {
 		
 		System.out.println("Stampo findById utente");
@@ -115,8 +113,6 @@ public class UtenteRest {
 	
 	@POST
 	@Path("/utenteInsert")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	public Response insert(Utente utente) {
 		
 		System.out.println("Insert utente");
@@ -138,8 +134,6 @@ public class UtenteRest {
 	
 	@PUT
 	@Path("/utenteUpdate")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(Utente utente) {
 		
 		System.out.println("update utente");
@@ -161,7 +155,6 @@ public class UtenteRest {
 	
 	@DELETE
 	@Path("/utenteDelete")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response delete(Utente utente) {
 		
 		System.out.println("Delete Utente");
@@ -183,7 +176,6 @@ public class UtenteRest {
 	
 	@GET
 	@Path("/getUtenteLogin/{email}/{password}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(@PathParam("email") String email, @PathParam("password") String password) throws NoResultException {
 		
 		System.out.println("login");
@@ -214,7 +206,6 @@ public class UtenteRest {
 	
 	@GET
 	@Path("/getDatiUtenteProdotto")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAllDatiUtenteProdotto() {
 		
 		System.out.println("findAllDatiUtenteProdotto di UtenteRest");
