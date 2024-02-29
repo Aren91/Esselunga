@@ -275,7 +275,7 @@ public class UtenteDao extends BaseDao<Utente> {
 		} catch(Exception e) {
 			e.printStackTrace();
 			
-			return emailTrovata;
+			return null;
 		} finally {
 			getEntityManager().close();
 		}

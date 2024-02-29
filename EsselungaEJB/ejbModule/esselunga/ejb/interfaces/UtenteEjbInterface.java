@@ -26,4 +26,6 @@ public interface UtenteEjbInterface {
 	Utente login(String email, String password);
 	
 	List<Utente> findAllDatiUtenteProdotto();
+	
+	String findEmail(String email);
 }

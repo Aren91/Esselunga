@@ -95,4 +95,12 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 		return utenteDao.findAllDatiUtenteProdotto();
 	}
 
+	@Override
+	public String findEmail(String email) {
+		
+		UtenteDao utenteDao = new UtenteDao();
+		
+		return utenteDao.findEmail(email);
+	}
+
 }
