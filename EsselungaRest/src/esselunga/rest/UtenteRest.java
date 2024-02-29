@@ -216,7 +216,7 @@ public class UtenteRest {
 			return Response.ok(datiTrovati).build();
 		} catch(Exception e) {
 			e.printStackTrace();
-			
+			System.out.println("Errore");
 			return Response.serverError().build();
 		}
 	}
