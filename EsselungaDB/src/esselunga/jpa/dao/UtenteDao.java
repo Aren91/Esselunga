@@ -260,5 +260,25 @@ public class UtenteDao extends BaseDao<Utente> {
 			getEntityManager().close();
 		}
 	}
+	
+	public String findEmail(String email){
+		
+		System.out.println("findEmail di UtenteDao");
+		String emailTrovata = null;
+		try {
+			beginTransaction();
+			Query query = getEntityManager().createNativeQuery("SELECT EMAIL FROM UTENTE WHERE EMAIL = ?", Utente.class);
+			query.setParameter(1, email);
+			emailTrovata = (String)query.getSingleResult();
+			
+			return emailTrovata;
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return emailTrovata;
+		} finally {
+			getEntityManager().close();
+		}
+	}
 
 }

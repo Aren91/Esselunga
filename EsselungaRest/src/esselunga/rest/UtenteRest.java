@@ -200,7 +200,7 @@ public class UtenteRest {
 		
 		}
 		
-		return Response.ok().build();
+		return Response.serverError().build();
 	}
 	
 	@GET
