@@ -99,7 +99,12 @@ public class ProdottoRest {
 			prodottoTrovato = prodottoEjbInterface.findById(id);
 			
 			return Response.status(Status.OK).entity(prodottoTrovato).build();
-		} catch(Exception e) {
+		} catch(EsselungaException ee) {
+			ee.printStackTrace();
+			
+			return Response.serverError().build();
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
@@ -119,7 +124,12 @@ public class ProdottoRest {
 			prodottiTrovati = prodottoEjbInterface.findAll();
 			
 			return Response.status(Status.OK).entity(prodottiTrovati).build();
-		} catch(Exception e) {
+		} catch(EsselungaException ee) {
+			ee.printStackTrace();
+			
+			return Response.serverError().build();
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
@@ -138,7 +148,12 @@ public class ProdottoRest {
 			prodottiUtenti = prodottoEjbInterface.findAllByUtenti();
 			
 			return Response.status(Status.OK).entity(prodottiUtenti).build();
-		} catch(Exception e) {
+		} catch(EsselungaException ee) {
+			ee.printStackTrace();
+			
+			return Response.serverError().build();
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			
 			return Response.serverError().build();
@@ -157,7 +172,12 @@ public class ProdottoRest {
 			prodottiUtente = prodottoEjbInterface.findAllByIdUtente(idUtente);
 			
 			return Response.ok(prodottiUtente).build();
-		} catch(Exception e) {
+		} catch(EsselungaException ee) {
+			ee.printStackTrace();
+			
+			return Response.serverError().build();
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			
 			return Response.serverError().build();
@@ -187,7 +207,12 @@ public class ProdottoRest {
 			datiTrovati = prodottoEjbInterface.findAllDati();
 			
 			return Response.status(Status.OK).entity(datiTrovati).build();
-		} catch(Exception e) {
+		} catch(EsselungaException ee) {
+			ee.printStackTrace();
+			
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();

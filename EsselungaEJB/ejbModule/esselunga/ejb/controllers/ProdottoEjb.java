@@ -58,35 +58,67 @@ public class ProdottoEjb implements ProdottoEjbInterface, Serializable{
 	}
 
 	@Override
-	public List<Prodotto> findAll() {
+	public List<Prodotto> findAll() throws Exception {
 		
 		ProdottoDao prodottoDao = new ProdottoDao();
 		
-		return prodottoDao.findAll();
+		try {
+			return prodottoDao.findAll();
+		} catch (EsselungaException e) {
+			e.printStackTrace();
+			throw new EsselungaException(e.getMessage());
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("errore generico");
+		}
 	}
 
 	@Override
-	public List<Prodotto> findAllByUtenti() {
+	public List<Prodotto> findAllByUtenti() throws Exception {
 		
 		ProdottoDao prodottoDao = new ProdottoDao();
 		
-		return prodottoDao.findAllByUtenti();
+		try {
+			return prodottoDao.findAllByUtenti();
+		} catch (EsselungaException e) {
+			e.printStackTrace();
+			throw new EsselungaException(e.getMessage());
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("errore generico");
+		}
 	}
 
 	@Override
-	public List<Prodotto> findAllByIdUtente(Integer idUtente) {
+	public List<Prodotto> findAllByIdUtente(Integer idUtente) throws Exception {
 		
 		ProdottoDao prodottoDao = new ProdottoDao();
 		
-		return prodottoDao.findAllByIdUtente(idUtente);
+		try {
+			return prodottoDao.findAllByIdUtente(idUtente);
+		} catch (EsselungaException e) {
+			e.printStackTrace();
+			throw new EsselungaException(e.getMessage());
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("errore generico");
+		}
 	}
 
 	@Override
-	public List<Prodotto> findAllDati() {
+	public List<Prodotto> findAllDati() throws Exception {
 
 		ProdottoDao prodottoDao = new ProdottoDao();
 		
-		return prodottoDao.findAllDati();
+		try {
+			return prodottoDao.findAllDati();
+		} catch (EsselungaException e) {
+			e.printStackTrace();
+			throw new EsselungaException(e.getMessage());
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("errore generico");
+		}
 
 	}
 
