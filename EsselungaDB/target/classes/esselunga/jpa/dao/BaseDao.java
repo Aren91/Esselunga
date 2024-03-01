@@ -3,8 +3,10 @@ package esselunga.jpa.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import esselunga.jpa.connection.EntityManagerProvider;
+import esselunga.jpa.eccezzioni.EsselungaException;
 
 public abstract class BaseDao<T> {
 	
@@ -14,9 +16,9 @@ public abstract class BaseDao<T> {
 	
 	public abstract void delete(T model);
 	
-	public abstract T findById(Integer id);
+	public abstract T findById(Integer id) throws NoResultException, EsselungaException;
 	
-	public abstract List<T> findAll();
+	public abstract List<T> findAll() throws EsselungaException;
 	
 	protected EntityManager getEntityManager() {
 		

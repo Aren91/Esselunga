@@ -2,8 +2,10 @@ package esselunga.jpa.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import esselunga.jpa.eccezzioni.EsselungaException;
 import esselunga.jpa.models.Prodotto;
 
 public class ProdottoDao extends BaseDao<Prodotto>{
@@ -75,15 +77,19 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 	}
 
 	@Override
-	public Prodotto findById(Integer id) {
+	public Prodotto findById(Integer id) throws NoResultException, EsselungaException{
 		
 		logInit("findById", id);
 		
 		try {
 			beginTransaction();
 			Prodotto prodottoTrovato = getEntityManager().find(Prodotto.class, id);
-			
+			if(prodottoTrovato == null) {
+				throw new EsselungaException("elemento non trovato");
+			}
 			return prodottoTrovato;
+		} catch(EsselungaException ee) {
+			throw new EsselungaException(ee.getMessage());
 		} catch(Exception e) {
 			e.printStackTrace();
 			
@@ -95,7 +101,7 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Prodotto> findAll() {
+	public List<Prodotto> findAll() throws EsselungaException {
 		
 		logInit("findAll", null);
 		
@@ -105,6 +111,8 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 			List<Prodotto> prodottiTrovati = query.getResultList();
 			
 			return prodottiTrovati;
+		} catch(NoResultException nre) {
+			throw new EsselungaException("elementi non trovati");
 		} catch(Exception e) {
 			e.printStackTrace();
 			
