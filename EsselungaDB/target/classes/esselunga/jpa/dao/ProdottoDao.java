@@ -90,6 +90,7 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 			return prodottoTrovato;
 		} catch(EsselungaException ee) {
 			ee.printStackTrace();
+			System.out.println("findbyId di ProdottoDao");
 			throw new EsselungaException(ee.getMessage());
 		} catch(Exception e) {
 			e.printStackTrace();
