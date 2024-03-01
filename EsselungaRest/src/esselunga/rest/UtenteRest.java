@@ -232,6 +232,7 @@ public class UtenteRest {
 			
 		} catch (EsselungaException ee) {
 			
+			System.out.println(ee.getMessaggio());
 			ee.printStackTrace();
 			return Response.serverError().build();
 			
