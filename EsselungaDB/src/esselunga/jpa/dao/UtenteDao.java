@@ -7,12 +7,15 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import esselunga.jpa.connection.EntityManagerProvider;
+import esselunga.jpa.eccezzioni.EsselungaException;
 import esselunga.jpa.models.Utente;
 
 public class UtenteDao extends BaseDao<Utente> {
 
 	@Override
 	public Utente insert(Utente model) {
+		
+		logInit("insert", model);
 		try {
 			
 			EntityManagerProvider.beginTransaction();
@@ -43,6 +46,7 @@ public class UtenteDao extends BaseDao<Utente> {
 	@Override
 	public Utente update(Utente model) {
 		
+		logInit("update", model);
 		try {
 			
 			EntityManagerProvider.beginTransaction();
@@ -65,6 +69,8 @@ public class UtenteDao extends BaseDao<Utente> {
 
 	@Override
 	public void delete(Utente model) {
+		
+		logInit("delete", model);
 
 		try {
 			
@@ -93,6 +99,8 @@ public class UtenteDao extends BaseDao<Utente> {
 
 	@Override
 	public Utente findById(Integer id) {
+		
+		logInit("findById", id);
 
 		try {
 			
@@ -118,6 +126,8 @@ public class UtenteDao extends BaseDao<Utente> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Utente> findAll() {
+		
+		logInit("findAll");
 
 		try {
 			
@@ -150,6 +160,8 @@ public class UtenteDao extends BaseDao<Utente> {
 	@SuppressWarnings("unchecked")
 	public List<Utente> findAllByProdotti() {
 		
+		logInit("findAllByProdotti");
+		
 		try {
 			
 			EntityManagerProvider.beginTransaction();
@@ -179,6 +191,8 @@ public class UtenteDao extends BaseDao<Utente> {
 	@SuppressWarnings("unchecked")
 	public List<Utente> findUtentiByProdottoId(Integer id) {
 		
+		logInit("findUtentiByProdottoId");
+		
 		try {
 			
 			EntityManagerProvider.beginTransaction();
@@ -207,9 +221,9 @@ public class UtenteDao extends BaseDao<Utente> {
 		return null;
 	}
 	
-	public Utente login (String email, String password) throws NoResultException {
+	public Utente login (String email, String password) throws NoResultException, EsselungaException {
 		
-		System.out.println("login");
+		logInit("login");
 		
 		try {
 			
@@ -229,9 +243,10 @@ public class UtenteDao extends BaseDao<Utente> {
 			return utente;
 			
 		} catch(NoResultException nre) {
-			throw new NoResultException(nre.getMessage());
 			
-		}catch (Exception e) {
+			throw new EsselungaException("Elemento non trovato");
+			
+		} catch (Exception e) {
 
 			e.printStackTrace();
 			EntityManagerProvider.rollbackTransaction();
@@ -247,7 +262,8 @@ public class UtenteDao extends BaseDao<Utente> {
 	@SuppressWarnings("unchecked")
 	public List<Utente> findAllDatiUtenteProdotto(){
 		
-		System.out.println("findAllDatiUtenteProdotto di UtenteDao");
+		logInit("findAllDatiUtenteProdotto");
+		
 		try {
 			beginTransaction();
 			Query query = getEntityManager().createNativeQuery("SELECT U.*, P.* FROM CARRELLO C "
@@ -267,13 +283,14 @@ public class UtenteDao extends BaseDao<Utente> {
 	
 	public String findEmail(String email){
 		
-		System.out.println("findEmail di UtenteDao");
+		logInit("findEmail");
+		
 		String emailTrovata = null;
 		try {
 			beginTransaction();
 			Query query = getEntityManager().createNativeQuery("SELECT EMAIL FROM UTENTE WHERE EMAIL = ?", Utente.class);
 			query.setParameter(1, email);
-			emailTrovata = (String)query.getSingleResult();
+			emailTrovata = (String) query.getSingleResult();
 			
 			return emailTrovata;
 		} catch(Exception e) {
