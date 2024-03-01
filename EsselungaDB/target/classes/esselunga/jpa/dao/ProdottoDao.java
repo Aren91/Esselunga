@@ -85,12 +85,13 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 			beginTransaction();
 			Prodotto prodottoTrovato = getEntityManager().find(Prodotto.class, id);
 			if(prodottoTrovato == null) {
+				System.out.println("findbyId di ProdottoDao");
 				throw new EsselungaException("elemento non trovato");
 			}
 			return prodottoTrovato;
 		} catch(EsselungaException ee) {
 			ee.printStackTrace();
-			System.out.println("findbyId di ProdottoDao");
+			
 			throw new EsselungaException(ee.getMessage());
 		} catch(Exception e) {
 			e.printStackTrace();
