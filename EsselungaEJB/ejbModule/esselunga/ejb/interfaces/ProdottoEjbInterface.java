@@ -18,13 +18,13 @@ public interface ProdottoEjbInterface {
 	
 	Prodotto findById(Integer id) throws EsselungaException, Exception;
 	
-	List<Prodotto> findAll();
+	List<Prodotto> findAll() throws EsselungaException, Exception;
 	
-	List<Prodotto> findAllByUtenti();
+	List<Prodotto> findAllByUtenti() throws EsselungaException, Exception;
 	
-	List<Prodotto> findAllByIdUtente(Integer idUtente);
+	List<Prodotto> findAllByIdUtente(Integer idUtente) throws EsselungaException, Exception;
 	
-	List<Prodotto> findAllDati();
+	List<Prodotto> findAllDati() throws EsselungaException, Exception;
 	
 	
 	

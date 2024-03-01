@@ -89,6 +89,7 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 			}
 			return prodottoTrovato;
 		} catch(EsselungaException ee) {
+			ee.printStackTrace();
 			throw new EsselungaException(ee.getMessage());
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -123,7 +124,7 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Prodotto> findAllByUtenti(){
+	public List<Prodotto> findAllByUtenti() throws EsselungaException{
 		
 		logInit("findAllByUtenti", null);
 		
@@ -135,6 +136,9 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 			List<Prodotto> prodottiUtenti = query.getResultList();
 			
 			return prodottiUtenti;
+		} catch(NoResultException nre) {
+			nre.printStackTrace();
+			throw new EsselungaException("elementi non trovati");
 		} catch(Exception e) {
 			e.printStackTrace();
 			
@@ -145,7 +149,7 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Prodotto> findAllByIdUtente(Integer idUtente){
+	public List<Prodotto> findAllByIdUtente(Integer idUtente) throws EsselungaException{
 		
 		logInit("findAllByIdUtente", idUtente);
 		
@@ -157,8 +161,14 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 					+ "WHERE U.ID = ?", Prodotto.class);
 			query.setParameter(1, idUtente);
 			List<Prodotto> prodottiUtente = query.getResultList();
+			if(prodottiUtente.isEmpty()) {
+				throw new EsselungaException("utente senza prodotti");
+			}
 			
 			return prodottiUtente;
+		} catch(EsselungaException ee) {
+			ee.printStackTrace();
+			throw new EsselungaException(ee.getMessage());
 		} catch(Exception e) {
 			e.printStackTrace();
 			
@@ -169,7 +179,7 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Prodotto> findAllDati () {
+	public List<Prodotto> findAllDati () throws EsselungaException {
 		
 		logInit("findAllDati");
 		
@@ -182,7 +192,11 @@ public class ProdottoDao extends BaseDao<Prodotto>{
 			List<Prodotto> prodottiUtente = query.getResultList();
 			
 			return prodottiUtente;
-		} catch(Exception e) {
+		} catch(NoResultException nre) {
+			nre.printStackTrace();
+			throw new EsselungaException("elementi non trovati");
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			
 			return null;
