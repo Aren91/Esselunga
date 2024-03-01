@@ -228,7 +228,10 @@ public class UtenteDao extends BaseDao<Utente> {
 			
 			return utente;
 			
-		} catch (Exception e) {
+		} catch(NoResultException nre) {
+			throw new NoResultException(nre.getMessage());
+			
+		}catch (Exception e) {
 
 			e.printStackTrace();
 			EntityManagerProvider.rollbackTransaction();

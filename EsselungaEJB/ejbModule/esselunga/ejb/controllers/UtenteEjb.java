@@ -81,11 +81,21 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 	}
 
 	@Override
-	public Utente login(String email, String password) throws NoResultException {
+	public Utente login(String email, String password) throws Exception {
 
 		UtenteDao utenteDao = new UtenteDao();
-		Utente utente = utenteDao.login(email, password);
-		return utente;
+		try {
+			Utente utente = utenteDao.login(email, password);
+			
+			return utente;
+		} catch(NoResultException nre) {
+			throw new NoResultException(nre.getMessage());
+		}
+		catch (Exception e) {
+			throw new Exception("errore generico");
+		}
+		
+		
 	}
 
 	@Override

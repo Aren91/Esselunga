@@ -3,7 +3,6 @@ package esselunga.ejb.interfaces;
 import java.util.List;
 
 import javax.ejb.Local;
-import javax.persistence.NoResultException;
 
 import esselunga.jpa.models.Utente;
 
@@ -24,7 +23,7 @@ public interface UtenteEjbInterface {
 	
 	List<Utente> findUtentiByProdottoId(Integer id);
 	
-	Utente login(String email, String password) throws NoResultException;
+	Utente login(String email, String password) throws Exception;
 	
 	List<Utente> findAllDatiUtenteProdotto();
 	

@@ -185,23 +185,19 @@ public class UtenteRest {
 			utenteEjbInterface = new EJBFactory<UtenteEjbInterface>(UtenteEjbInterface.class).getEJB();
 			Utente utente = utenteEjbInterface.login(email, password);
 			
-			if (utente == null) {
-				
-				throw new NoResultException();
-			}
-			
 			return Response.ok().entity(utente).build();
 			
 		} catch (NoResultException e) {
-		
 			e.printStackTrace();
+			
+			return Response.serverError().build();
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+			return Response.serverError().build();
 		}
 		
-		return Response.serverError().build();
 	}
 	
 	@GET
