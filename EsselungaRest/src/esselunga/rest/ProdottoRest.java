@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import esselunga.ejb.interfaces.ProdottoEjbInterface;
+import esselunga.jpa.eccezzioni.EsselungaException;
 import esselunga.jpa.models.Prodotto;
 import esselunga.rest.config.EJBFactory;
 
@@ -37,7 +38,12 @@ public class ProdottoRest {
 			prodotto = prodottoEjbInterface.insert(prodotto);
 			
 			return Response.status(Status.CREATED).entity(prodotto).build();
-		} catch(Exception e) {
+		} catch(EsselungaException ee) {
+			ee.printStackTrace();
+			
+			return Response.serverError().build();
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			
 			return Response.serverError().build();

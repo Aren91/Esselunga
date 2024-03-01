@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 
 import esselunga.ejb.interfaces.ProdottoEjbInterface;
 import esselunga.jpa.dao.ProdottoDao;
+import esselunga.jpa.eccezzioni.EsselungaException;
 import esselunga.jpa.models.Prodotto;
 
 @Stateless(name="ProdottoEjbInterface")
@@ -40,11 +42,19 @@ public class ProdottoEjb implements ProdottoEjbInterface, Serializable{
 	}
 
 	@Override
-	public Prodotto findById(Integer id) {
+	public Prodotto findById(Integer id) throws Exception {
 		
 		ProdottoDao prodottoDao = new ProdottoDao();
 		
-		return prodottoDao.findById(id);
+		try {
+			return prodottoDao.findById(id);
+		} catch (NoResultException e) {
+			e.printStackTrace();
+			throw new EsselungaException(e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception(e.getMessage());
+		}
 	}
 
 	@Override
