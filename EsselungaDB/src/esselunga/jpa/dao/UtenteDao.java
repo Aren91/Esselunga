@@ -94,11 +94,11 @@ public class UtenteDao extends BaseDao<Utente> {
 			getEntityManager().close();
 			
 		}
-		
+		  
 	}
 
 	@Override
-	public Utente findById(Integer id) {
+	public Utente findById(Integer id) throws EsselungaException {
 		
 		logInit("findById", id);
 
@@ -106,9 +106,20 @@ public class UtenteDao extends BaseDao<Utente> {
 			
 			EntityManagerProvider.beginTransaction();
 			Utente utenteTrovato = getEntityManager().find(Utente.class, id);
+			
+			if (utenteTrovato == null) {
+				
+				throw new EsselungaException("Elemento non trovato");
+			}
+			
+			
 			EntityManagerProvider.commitTransaction();
 			
 			return utenteTrovato;
+			
+		} catch (EsselungaException ee) {
+			
+			throw new EsselungaException(ee.getMessage());
 			
 		} catch (Exception e) {
 			
@@ -125,7 +136,7 @@ public class UtenteDao extends BaseDao<Utente> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Utente> findAll() {
+	public List<Utente> findAll() throws EsselungaException {
 		
 		logInit("findAll");
 
@@ -139,9 +150,18 @@ public class UtenteDao extends BaseDao<Utente> {
 			
 			listaUtenti = query.getResultList();
 			
+			if (listaUtenti == null) {
+				
+				throw new EsselungaException("Elementi non trovati");
+			}
+			
 			EntityManagerProvider.commitTransaction();
 			
 			return listaUtenti;
+			
+		} catch (EsselungaException ee) {
+			
+			throw new EsselungaException(ee.getMessage());
 			
 		} catch (Exception e) {
 			
@@ -158,7 +178,7 @@ public class UtenteDao extends BaseDao<Utente> {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Utente> findAllByProdotti() {
+	public List<Utente> findAllByProdotti() throws EsselungaException {
 		
 		logInit("findAllByProdotti");
 		
@@ -172,10 +192,20 @@ public class UtenteDao extends BaseDao<Utente> {
 																					" inner join prodotto p on p.ID = c.ID_PRODOTTO",
 																					Utente.class);
 			listaUtenti = query.getResultList();
+			
+			if (listaUtenti == null) {
+			
+				throw new EsselungaException("Elementi non trovati");
+			}
+			
 			EntityManagerProvider.commitTransaction();
 			
 			return listaUtenti;
 			
+		} catch (EsselungaException ee) {
+			
+			throw new EsselungaException(ee.getMessage());
+
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -189,7 +219,7 @@ public class UtenteDao extends BaseDao<Utente> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Utente> findUtentiByProdottoId(Integer id) {
+	public List<Utente> findUtentiByProdottoId(Integer id) throws EsselungaException {
 		
 		logInit("findUtentiByProdottoId");
 		
@@ -204,9 +234,18 @@ public class UtenteDao extends BaseDao<Utente> {
 																					" where p.ID = " + id, Utente.class);
 			listaUtenti = query.getResultList();
 			
+			if (listaUtenti.isEmpty()) {
+				
+				throw new EsselungaException("Elementi non trovati");
+			}
+			
 			EntityManagerProvider.commitTransaction();
 			
 			return listaUtenti;
+			
+		} catch (EsselungaException ee) {
+
+			throw new EsselungaException(ee.getMessage());
 			
 		} catch (Exception e) {
 			
@@ -260,7 +299,7 @@ public class UtenteDao extends BaseDao<Utente> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Utente> findAllDatiUtenteProdotto(){
+	public List<Utente> findAllDatiUtenteProdotto() throws EsselungaException{
 		
 		logInit("findAllDatiUtenteProdotto");
 		
@@ -272,6 +311,11 @@ public class UtenteDao extends BaseDao<Utente> {
 			List<Utente> datiTrovati = query.getResultList();
 			
 			return datiTrovati;
+			
+		} catch (NoResultException nre) {
+
+			throw new EsselungaException("Elementi non trovati");
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			
@@ -281,7 +325,7 @@ public class UtenteDao extends BaseDao<Utente> {
 		}
 	}
 	
-	public String findEmail(String email){
+	public String findEmail(String email) throws EsselungaException{
 		
 		logInit("findEmail");
 		
@@ -293,6 +337,11 @@ public class UtenteDao extends BaseDao<Utente> {
 			emailTrovata = (String) query.getSingleResult();
 			
 			return emailTrovata;
+			
+		} catch (NoResultException nre) {
+
+			throw new EsselungaException("Elemento non trovato");
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			

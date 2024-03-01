@@ -9,6 +9,7 @@ import javax.persistence.NoResultException;
 
 import esselunga.ejb.interfaces.UtenteEjbInterface;
 import esselunga.jpa.dao.UtenteDao;
+import esselunga.jpa.eccezzioni.EsselungaException;
 import esselunga.jpa.models.Utente;
 
 @Stateless(name="UtenteEjbInterface")
@@ -18,23 +19,45 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 	private static final long serialVersionUID = -1449442866644241177L;
 
 	@Override
-	public List<Utente> findAll() {
+	public List<Utente> findAll() throws Exception {
 		
 		UtenteDao utenteDao = new UtenteDao();
 		
-		List<Utente> listaUtenti = utenteDao.findAll();
-		
-		return listaUtenti;
+		try {
+			
+			List<Utente> listaUtenti = utenteDao.findAll();
+			
+			return listaUtenti;
+			
+		} catch (EsselungaException ee) {
+			
+			throw new EsselungaException(ee.getMessage());
+			
+		} catch (Exception e) {
+			
+			throw new Exception("Errore generico");
+		}
 	}
 
 	@Override
-	public Utente findById(Integer id) {
+	public Utente findById(Integer id) throws Exception {
 		
 		UtenteDao utenteDao = new UtenteDao();
 		
-		Utente utente = utenteDao.findById(id);
+		try {
+			
+			Utente utente = utenteDao.findById(id);
+			
+			return utente;
 		
-		return utente;
+		} catch (EsselungaException ee) {
+			
+			throw new EsselungaException(ee.getMessage());
+			
+		} catch (Exception e) {
+			
+			throw new Exception(e.getMessage());
+		}
 	}
 
 	@Override
@@ -65,19 +88,44 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 	}
 
 	@Override
-	public List<Utente> findAllByProdotti() {
+	public List<Utente> findAllByProdotti() throws Exception {
 		
 		UtenteDao utenteDao = new UtenteDao();
-		List<Utente> listaUtenti = utenteDao.findAllByProdotti();
-		return listaUtenti;
+		
+		try {
+			
+			List<Utente> listaUtenti = utenteDao.findAllByProdotti();
+			return listaUtenti;
+		
+		} catch (EsselungaException ee) {
+
+			throw new EsselungaException(ee.getMessage());
+			
+		} catch (Exception e) {
+			
+			throw new Exception(e.getMessage());
+		}
+			
 	}
 
 	@Override
-	public List<Utente> findUtentiByProdottoId(Integer id) {
+	public List<Utente> findUtentiByProdottoId(Integer id) throws Exception {
 
 		UtenteDao utenteDao = new UtenteDao();
-		List<Utente> listaUtenti = utenteDao.findUtentiByProdottoId(id);
-		return listaUtenti;
+		
+		try {
+			
+			List<Utente> listaUtenti = utenteDao.findUtentiByProdottoId(id);
+			return listaUtenti;
+			
+		} catch (EsselungaException ee) {
+
+			throw new EsselungaException(ee.getMessage());
+			
+		} catch (Exception e) {
+
+			throw new Exception(e.getMessage());
+		}
 	}
 
 	@Override
@@ -88,8 +136,10 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 			Utente utente = utenteDao.login(email, password);
 			
 			return utente;
-		} catch(NoResultException nre) {
-			throw new NoResultException(nre.getMessage());
+			
+		} catch(EsselungaException ee) {
+			
+			throw new NoResultException(ee.getMessage());
 		}
 		catch (Exception e) {
 			throw new Exception("errore generico");
@@ -99,19 +149,41 @@ public class UtenteEjb implements Serializable, UtenteEjbInterface{
 	}
 
 	@Override
-	public List<Utente> findAllDatiUtenteProdotto() {
+	public List<Utente> findAllDatiUtenteProdotto() throws Exception {
 		
 		UtenteDao utenteDao = new UtenteDao();
 		
-		return utenteDao.findAllDatiUtenteProdotto();
+		try {
+			
+			return utenteDao.findAllDatiUtenteProdotto();
+			
+		} catch (EsselungaException ee) {
+
+			throw new EsselungaException(ee.getMessage());
+			
+		} catch (Exception e) {
+			
+			throw new Exception(e.getMessage());
+		}
 	}
 
 	@Override
-	public String findEmail(String email) {
+	public String findEmail(String email) throws Exception {
 		
 		UtenteDao utenteDao = new UtenteDao();
 		
-		return utenteDao.findEmail(email);
+		try {
+			
+			return utenteDao.findEmail(email);
+			
+		} catch (EsselungaException ee) {
+
+			throw new EsselungaException(ee.getMessage());
+			
+		} catch (Exception e) {
+
+			throw new Exception(e.getMessage());
+		}
 	}
 
 }

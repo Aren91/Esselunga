@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import esselunga.ejb.interfaces.UtenteEjbInterface;
+import esselunga.jpa.eccezzioni.EsselungaException;
 import esselunga.jpa.models.Utente;
 import esselunga.rest.config.EJBFactory;
 
@@ -39,12 +40,17 @@ public class UtenteRest {
 			
 			return Response.ok().entity(listaUtenti).build();
 			
+		} catch (EsselungaException ee) {
+
+			ee.printStackTrace();
+			return Response.serverError().build();
+		
 		} catch (Exception e) {
 			
 			e.printStackTrace();	
+			return Response.serverError().build();
 		}
 		
-		return Response.serverError().build();
 	}
 	
 	@GET
@@ -59,12 +65,17 @@ public class UtenteRest {
 			
 			return Response.ok().entity(listaUtenti).build();
 			
+		} catch (EsselungaException ee) {
+			
+			ee.printStackTrace();
+			return Response.serverError().build();
+			
 		} catch (Exception e) {
 			
 			e.printStackTrace();
+			return Response.serverError().build();
 		}
 		
-		return Response.serverError().build();
 	}
 	
 	@GET
@@ -80,13 +91,16 @@ public class UtenteRest {
 			
 			return Response.ok().entity(listaUtenti).build();
 			
+		} catch (EsselungaException ee) {
+		
+			ee.printStackTrace();
+			return Response.serverError().build();
 		} catch (Exception e) {
 			
 			e.printStackTrace();
-			
+			return Response.serverError().build();
 		}
 		
-		return Response.serverError().build();
 		
 	}
 	
@@ -103,12 +117,17 @@ public class UtenteRest {
 			
 			return Response.ok().entity(utente).build();
 			
+		} catch (EsselungaException ee) {
+
+			ee.printStackTrace();
+			return Response.serverError().build();
+			
 		} catch (Exception e) {
 
-			e.printStackTrace();	
+			e.printStackTrace();
+			return Response.serverError().build();
 		}
 		
-		return Response.serverError().build();	
 	}
 	
 	@POST
@@ -187,14 +206,14 @@ public class UtenteRest {
 			
 			return Response.ok().entity(utente).build();
 			
-		} catch (NoResultException e) {
-			e.printStackTrace();
+		} catch (EsselungaException ee) {
 			
+			ee.printStackTrace();
 			return Response.serverError().build();
 		
 		} catch (Exception e) {
-			e.printStackTrace();
 			
+			e.printStackTrace();
 			return Response.serverError().build();
 		}
 		
@@ -210,12 +229,18 @@ public class UtenteRest {
 			List<Utente> datiTrovati = utenteEjbInterface.findAllDatiUtenteProdotto();
 			
 			return Response.ok(datiTrovati).build();
-		} catch(Exception e) {
-			e.printStackTrace();
 			
+		} catch (EsselungaException ee) {
+			
+			ee.printStackTrace();
+			return Response.serverError().build();
+			
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+			return Response.serverError().build();	
 		}
 		
-		return Response.serverError().build();
 	}
 	
 }

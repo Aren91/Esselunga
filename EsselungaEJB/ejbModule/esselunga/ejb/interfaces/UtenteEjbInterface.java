@@ -9,9 +9,9 @@ import esselunga.jpa.models.Utente;
 @Local
 public interface UtenteEjbInterface {
 
-	List<Utente> findAll();
+	List<Utente> findAll() throws Exception;
 	
-	Utente findById(Integer id);
+	Utente findById(Integer id) throws Exception;
 	
 	Utente insert(Utente model);
 	
@@ -19,13 +19,13 @@ public interface UtenteEjbInterface {
 	
 	void delete(Utente model);
 	
-	List<Utente> findAllByProdotti();
+	List<Utente> findAllByProdotti() throws Exception;
 	
-	List<Utente> findUtentiByProdottoId(Integer id);
+	List<Utente> findUtentiByProdottoId(Integer id) throws Exception;
 	
 	Utente login(String email, String password) throws Exception;
 	
-	List<Utente> findAllDatiUtenteProdotto();
+	List<Utente> findAllDatiUtenteProdotto() throws Exception;
 	
-	String findEmail(String email);
+	String findEmail(String email) throws Exception;
 }
